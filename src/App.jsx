@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import './index.css'
 
@@ -8,15 +8,18 @@ export default function App() {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState([]);
 
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${search}`;
 
-  // fetch(url)
-  //   .then(response => response.json())
-  //   .then(data => setMovies(data.results));
+  const fetchMovies = (e) => {
+    e.preventDefault();
 
-  // useEffect(() => {
-  //   if (search) { }
-  // }, []);
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${search}`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setMovies(data.results);
+      })
+  };
 
   return (
     <>
@@ -37,7 +40,7 @@ export default function App() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="collapsibleNavId">
-            <form className="d-flex my-2 my-lg-0" onSubmit={setSearch}>
+            <form className="d-flex my-2 my-lg-0" onSubmit={fetchMovies}>
               <input
                 className="form-control me-sm-2"
                 type="text"
@@ -58,7 +61,20 @@ export default function App() {
       <div className="main">
         <div className="container">
           <div className="row">
-
+            {movies.map((movie) => {
+              <div className="col-md-4" key={movie.id}>
+                <div className="card">
+                  <div className="card-title">
+                    <h3>{movie.title}</h3>
+                    <h4>{movie.original_title}</h4>
+                  </div>
+                  <div className="card-body">
+                    <p>{movie.original_language}</p>
+                    <p>Rating: {movie.vote_average}</p>
+                  </div>
+                </div>
+              </div>
+            })}
           </div>
         </div>
       </div>
