@@ -33,9 +33,13 @@ export const ReactCountryFlag = ({ countryCode, style, ...props }) => {
 
     const actualCountryCode = languageToCountry[countryCode.toLowerCase()];
 
+    if (!actualCountryCode) {
+        return null;
+    }
+
     const emoji = actualCountryCode
-        .toUpperCase()
-        .replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + OFFSET));
+        ? actualCountryCode.toUpperCase().split('').map(char => String.fromCodePoint(char.charCodeAt(0) + OFFSET)).join('')
+        : '';
 
     return (
         <span

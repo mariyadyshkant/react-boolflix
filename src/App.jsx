@@ -10,7 +10,7 @@ function App() {
 
   const fetchMovies = (e) => {
     e.preventDefault();
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${search}`;
+    const url = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${search}`;
 
     if (!search.trim()) {
       setError('Please enter a title');
@@ -24,6 +24,7 @@ function App() {
         if (data.results && data.results.length > 0) {
           setMovies(data.results);
           setError('');
+          console.log(data.results);
         } else {
           setMovies([]);
           setError('No movies found');
@@ -45,7 +46,7 @@ function App() {
             <input
               className="form-control me-sm-2"
               type="text"
-              placeholder="Search movies..."
+              placeholder="Search movies, series, actors..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -62,13 +63,18 @@ function App() {
             {movies.map((movie) => (
               <div className="col-md-4" key={movie.id}>
                 <div className="card h-100">
+                  <img
+                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/150'}
+                    className="card-img-top"
+                    alt={movie.title || movie.name}
+                  />
                   <div className="card-body">
-                    <h3 className="card-title">{movie.title}</h3>
-                    <h6 className="card-subtitle mb-2 text-muted">({movie.original_title})</h6>
+                    <h3 className="card-title">{movie.title || movie.name}</h3>
+                    <h6 className="card-subtitle mb-2 text-muted">({movie.original_title || movie.original_name})</h6>
                     <p>
                       Lingua: <ReactCountryFlag countryCode={movie.original_language} />
                     </p>
-                    <p>Rating: {movie.vote_average}</p>
+                    <p>Rating: {Math.ceil(movie.vote_average / 2)}</p>
                   </div>
                 </div>
               </div>
