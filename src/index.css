@@ -1,8 +1,51 @@
 @import 'bootstrap';
 @import 'bootstrap-icons';
 
+@font-face {
+  font-family: 'Brunson';
+  src: url('./assets/Brunson.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.navbar-brand {
+  font-family: 'Brunson', sans-serif;
+  font-size: 3rem;
+  color: #d40f0f;
+  text-shadow: 1px 1px 2px rgba(121, 3, 3, 0.739);
+}
+
+.card {
+  position: relative;
+
+  .card-body {
+    display: none;
+    color: rgb(12, 11, 11);
+    object-fit: cover;
+  }
+
+  .card-img-top {
+    height: 400px;
+    object-fit: cover;
+
+  }
+}
+
+.card:hover {
+  .card-img-top {
+    opacity: 20%;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .card-body {
+    display: block;
+    transition: display 0.3s ease-in-out;
+    position: absolute;
+  }
 }

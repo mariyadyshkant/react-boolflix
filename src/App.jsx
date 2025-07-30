@@ -47,14 +47,14 @@ function App() {
         starIcons.push(<i key={i} className="bi bi-star text-secondary"></i>);
       }
     }
-    return <div>{starIcons}</div>;
+    return <>{starIcons}</>;
   };
 
   return (
     <>
       <nav className="navbar navbar-expand-sm navbar-light bg-light">
         <div className="container">
-          <a className="navbar-brand" href="#">Boolflix</a>
+          <a className="navbar-brand" href="/">Boolflix</a>
           <form className="d-flex my-2 my-lg-0" onSubmit={fetchMovies}>
             <input
               className="form-control me-sm-2"
@@ -69,15 +69,15 @@ function App() {
           </form>
         </div>
       </nav>
-      <div className="main">
+      <div className="main my-5">
         <div className="container">
           {error && <div className="alert alert-danger">{error}</div>}
-          <div className="row">
+          <div className="row g-3">
             {movies.map((movie) => (
               <div className="col-md-4" key={movie.id}>
                 <div className="card h-100">
                   <img
-                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/150'}
+                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w342${movie.poster_path}` : '/placeholder.jpg'}
                     className="card-img-top"
                     alt={movie.title || movie.name}
                   />
