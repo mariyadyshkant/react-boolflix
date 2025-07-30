@@ -37,6 +37,19 @@ function App() {
       });
   };
 
+  const ratingStars = (vote) => {
+    const stars = Math.ceil(vote / 2);
+    const starIcons = [];
+    for (let i = 0; i < 5; i++) {
+      if (i < stars) {
+        starIcons.push(<i key={i} className="bi bi-star-fill text-warning"></i>);
+      } else {
+        starIcons.push(<i key={i} className="bi bi-star text-secondary"></i>);
+      }
+    }
+    return <div>{starIcons}</div>;
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-sm navbar-light bg-light">
@@ -74,7 +87,7 @@ function App() {
                     <p>
                       Lingua: <ReactCountryFlag countryCode={movie.original_language} />
                     </p>
-                    <p>Rating: {Math.ceil(movie.vote_average / 2)}</p>
+                    <p>Rating: {ratingStars(movie.vote_average)}</p>
                   </div>
                 </div>
               </div>
